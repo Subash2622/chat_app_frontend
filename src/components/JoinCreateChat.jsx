@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import chatIcon from "../assets/chat.png";
 import toast from "react-hot-toast";
-import { createRoomApi } from "../services/RoomService";
+import { createRoomApi, joinChatApi } from "../services/RoomService";
 import useChatcontext from "../context/ChatContext";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +16,7 @@ const JoinCreateChat = () => {
   const navigate = useNavigate();
   // Jete bele kau field call heba se curent event ku nei asiba
   // ...detail kan kariba na jau field change hauchi ta name ta aniba au se object r ereplace kariba au value se field re rakhiba
+
   function handleFormInputChange(event) {
     setDetail({
       ...detail,
@@ -30,16 +31,33 @@ const JoinCreateChat = () => {
     return true;
   }
 
-  function joinChat() {
+  async function joinChat() {
     if (validateForm()) {
       //Join Chat
+
+      try {
+        const room = await joinChatApi(detail.roomId);
+        toast.success("Joined Succesfully");
+        setCurrentUser(detail.userName);
+        setRoomId(detail.roomId);
+        setConnected(true);
+        navigate("/chat");
+      } catch (error) {
+        if (error.status === 404) {
+          toast.error(error.response.data);
+        } else {
+          toast.error("Error in joining room");
+        }
+
+        console.log(error);
+      }
     }
   }
 
   async function createRoom() {
     if (validateForm) {
       //Create Room
-      console.log(detail);
+      // console.log(detail);
 
       // call api to create room on backend
       try {
