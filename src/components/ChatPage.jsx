@@ -5,7 +5,7 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([
     {
       content: "Hello ?",
-      sender: "Durgesh",
+      sender: "Subash",
     },
   ]);
   const [input, setInput] = useState("");
@@ -43,7 +43,7 @@ const ChatPage = () => {
               <div className="flex flex-row gap-2">
                 <img
                   className="h-10 w-10"
-                  classsrc={"https://avatar.iran.liara.run/public/23"}
+                  src={"https://avatar.iran.liara.run/public/23"}
                   alt="avtar"
                 />
                 <div Name="border flex flex-col gap-1">
