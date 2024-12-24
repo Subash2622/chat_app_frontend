@@ -128,8 +128,12 @@ const ChatPage = () => {
       {/* Chat Area */}
       <main ref={chatBoxRef} className="py-20 px-10 w-2/3 dark:bg-slate-600 mx-auto h-screen overflow-auto">
         {messages.map((message, index) => (
-          <div key={index} className="flex justify-end">
-            <div className="my-2 bg-blue-600 p-2 max-w-xs rounded">
+          <div key={index} className={`flex ${
+            message.sender === currentUser ? "justify-end" : "justify-start"
+          } `}>
+            <div className={`my-2 p-2 max-w-xs rounded ${
+          message.sender === currentUser ? "bg-green-600" : "bg-blue-600"
+        }`}>
               <div className="flex flex-row gap-2">
                 <img
                   className="h-10 w-10"
